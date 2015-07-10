@@ -35,22 +35,19 @@
     [ASN1PreparedElement]
     [ASN1BoxedType ( Name = "<xsl:value-of select='$boxedName'/>") ]
     public class <xsl:value-of select="$boxedName"/>: IASN1PreparedElement {
-            
            
-        private <xsl:call-template name="elementType"/>  val;
-
         <xsl:call-template name="typeDecl"/> 
         <xsl:call-template name="elementDecl"/>
         <xsl:for-each select="constraint">
            <xsl:call-template name="constraint"/>
         </xsl:for-each>
-        public <xsl:call-template name="elementType"/> Value
+        public <xsl:call-template name="elementType"/> Value 
         {
-                get { return val; }        
+            get;
             <xsl:choose>
             <xsl:when test="typeReference/isNull = 'true'"></xsl:when>
             <xsl:otherwise>        
-                set { val = value; }
+            set;
             </xsl:otherwise>
             </xsl:choose>            
         }            
@@ -66,14 +63,14 @@
         }
 
             public void initWithDefaults()
-	    {
-	    }
+        {
+        }
 
 
-            private static IASN1PreparedElementData preparedData = CoderFactory.getInstance().newPreparedElementData(typeof(<xsl:value-of select='$boxedName'/>));
-            public IASN1PreparedElementData PreparedData {
-            	get { return preparedData; }
-            }
+        private static IASN1PreparedElementData preparedData = CoderFactory.getInstance().newPreparedElementData(typeof(<xsl:value-of select='$boxedName'/>));
+        public IASN1PreparedElementData PreparedData {
+            get { return preparedData; }
+        }
 
         
     }

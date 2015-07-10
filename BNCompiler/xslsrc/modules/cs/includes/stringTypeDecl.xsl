@@ -25,8 +25,7 @@
 >
     <xsl:output method="text" encoding="UTF-8" indent="no"/>
 
-    <xsl:template name="stringTypeDecl">
-        StringType = <xsl:choose>
+    <xsl:template name="stringTypeDecl">StringType = <xsl:choose>
             <xsl:when test="stringtype = 'PrintableString'"> UniversalTags.PrintableString </xsl:when>
             <xsl:when test="stringtype = 'NumericString'"> UniversalTags.NumericString </xsl:when>
             <xsl:when test="stringtype = 'TeletexString'"> UniversalTags.TeletexString </xsl:when>

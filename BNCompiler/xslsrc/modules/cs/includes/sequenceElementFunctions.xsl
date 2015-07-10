@@ -30,10 +30,10 @@
     <xsl:output method="text" encoding="UTF-8" indent="no"/>
 
   <xsl:template name="sequenceElementFunctions">
-	<xsl:variable name="elementName"><xsl:call-template name="doMangleIdent"><xsl:with-param name='input' select="name"/></xsl:call-template></xsl:variable>        
+    <xsl:variable name="elementName"><xsl:call-template name="doMangleIdent"><xsl:with-param name='input' select="name"/></xsl:call-template></xsl:variable>
         <xsl:if test="isOptional = 'true'">
         public bool is<xsl:call-template name="toUpperFirstLetter"><xsl:with-param name="input" select="$elementName"/></xsl:call-template>Present () {
-            return this.<xsl:value-of select="$elementName"/>_present == true;
+            return this.<xsl:value-of select="$elementName"/>_present;
         }
         </xsl:if>
         

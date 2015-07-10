@@ -36,17 +36,11 @@
     [ASN1BoxedType ( Name = "<xsl:value-of select='$boxedName'/>") ]
     public class <xsl:value-of select="$boxedName"/>: IASN1PreparedElement {
     
-            private byte[] val = null;
-
             [ASN1OctetString( Name = "<xsl:value-of select='name'/>") ]            
             <xsl:for-each select="constraint">
                 <xsl:call-template name="constraint"/>
             </xsl:for-each>
-            public byte[] Value
-            {
-                get { return val; }
-                set { val = value; }
-            }            
+            public byte[] Value { get; set; }
             
             public <xsl:value-of select="$boxedName"/>() {
             }
@@ -60,13 +54,13 @@
             }                        
 
             public void initWithDefaults()
-	    {
-	    }
+            {
+            }
 
 
             private static IASN1PreparedElementData preparedData = CoderFactory.getInstance().newPreparedElementData(typeof(<xsl:value-of select='$boxedName'/>));
             public IASN1PreparedElementData PreparedData {
-            	get { return preparedData; }
+                get { return preparedData; }
             }
 
     }

@@ -31,21 +31,26 @@
 
   <xsl:template name="element">
         <xsl:variable name="elementName"> <xsl:call-template name="doMangleIdent"><xsl:with-param name='input' select="name"/></xsl:call-template></xsl:variable>        
-	private <xsl:call-template name="elementType"/> <xsl:value-of select="' '"/> <xsl:value-of select="$elementName"/>_ ;
-	<xsl:if test="isOptional = 'true'">
-        private bool <xsl:value-of select="' '"/> <xsl:value-of select="$elementName"/>_present = false ;
-	</xsl:if>
+        <xsl:if test="isOptional = 'true'">
+            private <xsl:call-template name="elementType"/> <xsl:value-of select="' '"/> <xsl:value-of select="$elementName"/>_ ;
+            private bool <xsl:value-of select="' '"/> <xsl:value-of select="$elementName"/>_present = false ;
+        </xsl:if>
         
         
         <xsl:call-template name="typeDecl"/>
         <xsl:call-template name="elementDecl"/>
-        public <xsl:call-template name="elementType"/> <xsl:value-of select="' '"/> <xsl:call-template name="toUpperFirstLetter"><xsl:with-param name="input" select="$elementName"/></xsl:call-template>
-        {
-            get { return <xsl:value-of select="$elementName"/>_; }
-            set { <xsl:value-of select="$elementName"/>_ = value; <xsl:if test="isOptional = 'true'"> <xsl:value-of select="$elementName"/>_present = true; </xsl:if> }
-        }
-        
-                
+            public <xsl:call-template name="elementType"/> <xsl:value-of select="' '"/> <xsl:call-template name="toUpperFirstLetter"><xsl:with-param name="input" select="$elementName"/></xsl:call-template>
+            {
+        <xsl:choose>
+            <xsl:when test="isOptional = 'true'">
+                get { return <xsl:value-of select="$elementName"/>_; }
+                set { <xsl:value-of select="$elementName"/>_ = value; <xsl:if test="isOptional = 'true'"> <xsl:value-of select="$elementName"/>_present = true; </xsl:if> }
+            </xsl:when>
+            <xsl:otherwise>
+                get; set;
+            </xsl:otherwise>
+        </xsl:choose>
+            }
   </xsl:template>
   
 </xsl:stylesheet>
