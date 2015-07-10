@@ -279,6 +279,10 @@ namespace org.bn.coders.ber
                 CoderUtils.checkConstraints((int)result.Value, elementInfo);
                 return result;
             }
+            if (objectClass.Equals(typeof(byte[]))) {
+                DecodedObject<object> result = decodeBigIntegerValue(stream);
+                return result;
+            }
             else
             {
                 DecodedObject<object> result = decodeLongValue(stream);
@@ -343,6 +347,17 @@ namespace org.bn.coders.ber
 #endif
                 }
             return new DecodedObject<object>(result, len.Value + len.Size);
+        }
+
+        protected DecodedObject<object> decodeBigIntegerValue(System.IO.Stream stream)
+        {
+            var result = new DecodedObject<object>();
+            var len = decodeLength(stream);
+            var buffer = new byte[len.Value];
+            stream.Read(buffer, 0, len.Value);
+            result.Value = buffer;
+            result.Size = len.Value + len.Size;
+            return result;
         }
 
         protected DecodedObject<object> decodeLongValue(System.IO.Stream stream)
